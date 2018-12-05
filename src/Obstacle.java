@@ -33,16 +33,16 @@ public class Obstacle extends ScreenObj {
     public boolean collision(Obstacle theLion) {
         boolean didC = false;
         // get all the x coordinate info you need....
-        int theLionX0 = theLion.getXLoc() + theLion.getGameBBXExtra();
+        int theLionX0 = theLion.getXLoc() + theLion.getGameBBXExtra()-(int)(theLion.getBW()/2);//**
         int theLionX1 = theLionX0 + theLion.getGameBBW();      
-        int myX0 = this.getXLoc() + this.getGameBBXExtra();
+        int myX0 = this.getXLoc() + this.getGameBBXExtra()-(int)(this.getBW()/2); //****
         //int myX1 = theLionX0 + this.getGameBBW();  **** THIS IS WRONG
         int myX1 = myX0 + this.getGameBBW();
         
         //now adding y
-        int theLionY0 = theLion.getYLoc() + theLion.getGameBBYExtra();
+        int theLionY0 = theLion.getYLoc() + theLion.getGameBBYExtra()-(int)(theLion.getBH()/2); //****
         int theLionY1 = theLionY0 + theLion.getGameBBH();      
-        int myY0 = this.getYLoc() + this.getGameBBYExtra();
+        int myY0 = this.getYLoc() + this.getGameBBYExtra() -(int)(this.getBH()/2); //**
         //int myY1 = theLionY0 + this.getGameBBH(); **** THIS IS WRONG
         int myY1 = myY0 + this.getGameBBH();
          

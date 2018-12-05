@@ -3,8 +3,7 @@ import javax.swing.JFrame;
 public class GameRunner {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 		JFrame f = new JFrame("Flappy Lion");
 		int fW = 1000;
 		int fH = 700;
@@ -16,7 +15,5 @@ public class GameRunner {
 		f.add(myGame);
 		
 		f.setVisible(true);
-
 	}  
-
 }

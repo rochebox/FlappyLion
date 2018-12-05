@@ -25,13 +25,10 @@ public class GameWindow extends JPanel implements ActionListener, KeyListener {
 	private Cloud[ ] cList;
 	private Lion alexLion;
 	private Vac vac;
-	
-	
+	private Egg e1;
+	//** Add an Egg Variable --->private Egg e1;
 	
 	private Timer t;
-	
-	
-	
 	
 	//Constructor(s)
 	public GameWindow(int w, int h) {
@@ -60,18 +57,18 @@ public class GameWindow extends JPanel implements ActionListener, KeyListener {
 	
 	public void makeObstacles() {
 	    makeAlexLion();
-	    int theMaxW = (int) (windowW * 0.14);
-        int frameNum = 3;
-        int vacX = (int)(windowW) - theMaxW;
-        int vacY = windowH - (int)(theMaxW * 1.45);
+	    int theMaxWVac = (int) (windowW * 0.14);
+        int frameNumVac= 3;
+        int vacX = (int)(windowW) - theMaxWVac;
+        int vacY = windowH - (int)(theMaxWVac * 1.45);
         vac = new Vac (
                 vacX,  /* OK */
                 vacY,   /* using the new vacY */
                 "vac/Vach",
                 ".png", 
-                theMaxW, 
+                theMaxWVac, 
                 this, 
-                frameNum); 
+                frameNumVac); 
         vac.setMoveSpeed(25);
         vac.showGameBB(true);
         vac.setGameBBXExtra( (int) (vac.getBW()  * 0.5) );
@@ -79,6 +76,29 @@ public class GameWindow extends JPanel implements ActionListener, KeyListener {
         vac.setGameBBW( (int) (vac.getBW()  * 0.30) );
         vac.setGameBBH( (int) (vac.getBH()  * 0.95) );
         
+        //***NewStuff for an Egg goes here ***
+        
+        //***NewStuff for an Egg 
+        int theMaxWE1 = (int) (windowW * 0.15);
+        int frameNumE1= 6;
+        int e1X = vacX + (int)(windowW * 0.5) + theMaxWE1;
+       
+        int e1Y = (int) (windowH * 0.09);
+        e1 = new Egg (
+                e1X,  /* OK */
+                e1Y,   /* making it be high in the sky */
+                "cookingEggs/frame_",
+                "_delay-0.15s.gif", 
+                theMaxWE1, 
+                this, 
+                frameNumE1); 
+        e1.setMoveSpeed(25);
+        e1.showGameBB(true);
+        e1.setGameBBXExtra( (int) (e1.getBW()  * 0.02) );
+        e1.setGameBBYExtra( (int) (e1.getBH()  * 0.55) );
+        e1.setGameBBW( (int) (e1.getBW()  * 0.80) );
+        e1.setGameBBH( (int) (e1.getBH()  * 0.35) );
+             
 	}
 	
 	public void makeAlexLion() 
@@ -131,6 +151,9 @@ public class GameWindow extends JPanel implements ActionListener, KeyListener {
 		drawClouds(g);
 		alexLion.drawMe(g);
 		vac.drawMe(g);
+		// **** add code to draw the egg --> e1.drawMe(g);
+		e1.drawMe(g);
+		
 		
 	}
 	
@@ -145,28 +168,39 @@ public class GameWindow extends JPanel implements ActionListener, KeyListener {
 	public void checkCollisions() {
 	    if(vac.collision(alexLion) == true) 
 	    {
-	        System.out.println("HEY THERE IS A COLLISION");
-	    } else {
-	        System.out.println();
-	    }
+	        System.out.println("VAC COLLISION");
+	    } 
+	    
+	    if(e1.collision(alexLion) == true) 
+        {
+            System.out.println("EGG1 COLLISION");
+        } 
+	    
+	    System.out.println();
+	    
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub	
-		moveClouds();
-		moveAllObstacles();
-		checkCollisions();
-		repaint();	
+	    alexLion.animate();  //**********
+        moveAllObstacles();
+        checkCollisions();
+        moveClouds();
+        repaint(); 
 	}
 	
 	public void moveAllObstacles() {
 	    vac.moveObstacle();
+        vac.animate();  //********
+        e1.moveObstacle();
+        e1.animate();
 	}
 	
 	public void moveClouds() {
 		for(int i = 0; i < cList.length; i++) {
 			cList[i].moveCloud();
+			cList[i].animate();
 		}
 	}
 
